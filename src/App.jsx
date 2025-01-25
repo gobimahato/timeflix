@@ -14,7 +14,7 @@ const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const API_OPTIONS = {
   method: "GET",
   headers: {
-    "Content-Type": "application/json",
+    accept: "application/json",
     Authorization: `Bearer ${API_KEY}`,
   },
 };
@@ -29,8 +29,6 @@ const App = () => {
 
   const [trendingMovies, setTrendingMovies] = useState([]);
 
-  // Debounce the search term to prevent making too many API requests
-  // by waiting for the user to stop typing for 500ms
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 1000, [searchTerm]);
 
   const fetchMovies = async (query = "") => {
@@ -92,6 +90,7 @@ const App = () => {
       <div className="pattern">
         <div className="wrapper">
           <header>
+            <img src="./logo.png" alt="Timeflix logo" className="w-12 h-12 -mt-12" />
             <img src="./hero.png" alt="Hero Banner" />
             <h1>
               Find <span className="text-gradient">Movies</span> You&apos;ll
@@ -117,7 +116,7 @@ const App = () => {
           )}
 
           <section className="all-movies">
-            <h2 className="mt-[40px]">All Movies</h2>
+            <h2>All Movies</h2>
 
             {isLoading ? (
               <Spinner />
